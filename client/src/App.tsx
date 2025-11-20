@@ -121,10 +121,10 @@ export default function App() {
             <h2 className="text-5xl font-black">
               Try{' '}
               <span className="bg-gradient-to-r from-[#9945FF] to-[#14F195] text-transparent bg-clip-text">spl402</span>{' '}
-              on Mainnet
+              with OpenRouter
             </h2>
             <p className="text-xl text-gray-400 mt-4">
-              Click any tier to fetch data. Premium tiers require SOL payment.
+              Access 500+ AI models with SOL micropayments. Pay-per-request
             </p>
           </div>
 
@@ -136,7 +136,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 mb-12">
+          {/* <div className="grid md:grid-cols-2 gap-6 mb-12">
             {endpoints.map((endpoint) => (
               <TierCard
                 key={endpoint.path}
@@ -149,7 +149,7 @@ export default function App() {
             ))}
           </div>
 
-          <HowItWorks />
+          <HowItWorks /> */}
 
           <AIShowcase />
         </div>

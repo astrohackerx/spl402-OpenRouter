@@ -70,7 +70,7 @@ export default function AIShowcase() {
   const [loading, setLoading] = useState<{ [key: string]: boolean }>({})
   const wallet = useWallet()
   const { connection } = useConnection()
-  const { publicKey } = wallet
+ 
 
   const { makeRequest } = useSPL402({
     network: 'mainnet-beta',
@@ -305,7 +305,7 @@ export default function AIShowcase() {
 
   return (
     <div className="max-w-7xl mx-auto py-12">
-      <div className="text-center mb-12">
+      {/* <div className="text-center mb-12">
         <h2 className="text-4xl font-black mb-4">
           AI Features Powered by{' '}
           <span className="bg-gradient-to-r from-[#9945FF] to-[#14F195] text-transparent bg-clip-text">
@@ -315,7 +315,7 @@ export default function AIShowcase() {
         <p className="text-xl text-gray-400">
           Access 500+ AI models with SOL micropayments
         </p>
-      </div>
+      </div> */}
 
       <div className="grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-1 space-y-3">

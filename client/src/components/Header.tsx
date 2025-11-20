@@ -10,7 +10,7 @@ export default function Header() {
           </div>
           <div>
             <h1 className="text-lg font-bold">spl402</h1>
-            <p className="text-xs text-gray-400">Mainnet Starter Kit</p>
+            <p className="text-xs text-gray-400">AI Ultimate Kit</p>
           </div>
         </div>
         <WalletMultiButton />
