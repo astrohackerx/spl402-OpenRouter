@@ -78,64 +78,14 @@ export default function App() {
         response = await fetch(`${API_URL}${endpoint.path}`)
       } else {
         const walletAdapter = {
-          publicKey: wallet.publicKey?.toBase58(),
+          publicKey: wallet.publicKey,
           signAndSendTransaction: async (transaction: any) => {
-            // Reconstruct the transaction with proper PublicKey instances
-            const reconstructedTx = new Transaction()
-
-            if (transaction.recentBlockhash) {
-              reconstructedTx.recentBlockhash = transaction.recentBlockhash
-            }
-            if (transaction.lastValidBlockHeight) {
-              reconstructedTx.lastValidBlockHeight = transaction.lastValidBlockHeight
-            }
-            if (transaction.feePayer) {
-              reconstructedTx.feePayer = new PublicKey(
-                typeof transaction.feePayer === 'string'
-                  ? transaction.feePayer
-                  : transaction.feePayer.toBase58?.() || transaction.feePayer.toString()
-              )
-            }
-
-            if (transaction.instructions && Array.isArray(transaction.instructions)) {
-              for (const ix of transaction.instructions) {
-                const keys = ix.keys.map((key: any) => ({
-                  pubkey: new PublicKey(
-                    typeof key.pubkey === 'string'
-                      ? key.pubkey
-                      : key.pubkey.toBase58?.() || key.pubkey.toString()
-                  ),
-                  isSigner: key.isSigner,
-                  isWritable: key.isWritable,
-                }))
-
-                const programId = new PublicKey(
-                  typeof ix.programId === 'string'
-                    ? ix.programId
-                    : ix.programId.toBase58?.() || ix.programId.toString()
-                )
-
-                reconstructedTx.add(
-                  new TransactionInstruction({
-                    keys,
-                    programId,
-                    data: Buffer.from(ix.data),
-                  })
-                )
-              }
-            }
-
-            const signedTx = await wallet.signTransaction!(reconstructedTx)
-            const rawTransaction = signedTx.serialize()
-            const signature = await connection.sendRawTransaction(rawTransaction, {
+            const signature = await wallet.sendTransaction(transaction, connection, {
               skipPreflight: false,
-              preflightCommitment: 'confirmed',
             })
-            await connection.confirmTransaction(signature, 'confirmed')
             return { signature }
           },
         }
-
         response = await makeRequest(`${API_URL}${endpoint.path}`, walletAdapter)
       }
 
@@ -209,4 +159,3 @@ export default function App() {
     </div>
   )
 }
-
