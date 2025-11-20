@@ -1,115 +1,115 @@
-import { useState } from 'react'
-import { useWallet, useConnection } from '@solana/wallet-adapter-react'
-import { useSPL402 } from 'spl402'
-import { Transaction, PublicKey, TransactionInstruction } from '@solana/web3.js'
-import { Zap, Lock, Globe, CheckCircle } from 'lucide-react'
+// import { useState } from 'react'
+// import { useWallet, useConnection } from '@solana/wallet-adapter-react'
+// import { useSPL402 } from 'spl402'
+// import { Transaction, PublicKey, TransactionInstruction } from '@solana/web3.js'
+// import { Zap, Lock, Globe, CheckCircle } from 'lucide-react'
 import Header from './components/Header'
-import TierCard from './components/TierCard'
+// import TierCard from './components/TierCard'
 import SocialLinks from './components/SocialLinks'
-import HowItWorks from './components/HowItWorks'
+// import HowItWorks from './components/HowItWorks'
 import Footer from './components/Footer'
 import AIShowcase from './components/AIShowcase'
-import type { Endpoint, ResponseData, LoadingState, ErrorState } from './types'
+// import type { Endpoint, ResponseData, LoadingState, ErrorState } from './types'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+// const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 
-const endpoints: Endpoint[] = [
-  {
-    path: '/api/free-data',
-    name: 'Free Tier',
-    price: 0,
-    description: 'No payment required',
-    icon: Globe,
-    color: 'from-gray-500 to-gray-600',
-  },
-  {
-    path: '/api/premium-data',
-    name: 'Premium Tier',
-    price: 0.001,
-    description: 'Advanced analytics & real-time updates',
-    icon: Zap,
-    color: 'from-[#9945FF] to-[#7d3dd6]',
-  },
-  {
-    path: '/api/ultra-premium',
-    name: 'Ultra Premium',
-    price: 0.005,
-    description: 'Dedicated manager & custom integrations',
-    icon: Lock,
-    color: 'from-[#14F195] to-[#0fc978]',
-  },
-  {
-    path: '/api/enterprise-data',
-    name: 'Enterprise',
-    price: 0.01,
-    description: 'White-label & 24/7 dedicated support',
-    icon: CheckCircle,
-    color: 'from-[#9945FF] to-[#14F195]',
-  },
-]
+// const endpoints: Endpoint[] = [
+//   {
+//     path: '/api/free-data',
+//     name: 'Free Tier',
+//     price: 0,
+//     description: 'No payment required',
+//     icon: Globe,
+//     color: 'from-gray-500 to-gray-600',
+//   },
+//   {
+//     path: '/api/premium-data',
+//     name: 'Premium Tier',
+//     price: 0.001,
+//     description: 'Advanced analytics & real-time updates',
+//     icon: Zap,
+//     color: 'from-[#9945FF] to-[#7d3dd6]',
+//   },
+//   {
+//     path: '/api/ultra-premium',
+//     name: 'Ultra Premium',
+//     price: 0.005,
+//     description: 'Dedicated manager & custom integrations',
+//     icon: Lock,
+//     color: 'from-[#14F195] to-[#0fc978]',
+//   },
+//   {
+//     path: '/api/enterprise-data',
+//     name: 'Enterprise',
+//     price: 0.01,
+//     description: 'White-label & 24/7 dedicated support',
+//     icon: CheckCircle,
+//     color: 'from-[#9945FF] to-[#14F195]',
+//   },
+// ]
 
 export default function App() {
-  const wallet = useWallet()
-  const { connection } = useConnection()
-  const { publicKey } = wallet
-  const [responses, setResponses] = useState<ResponseData>({})
-  const [loading, setLoading] = useState<LoadingState>({})
-  const [errors, setErrors] = useState<ErrorState>({})
+  // const wallet = useWallet()
+  // const { connection } = useConnection()
+  // const { publicKey } = wallet
+  // const [responses, setResponses] = useState<ResponseData>({})
+  // const [loading, setLoading] = useState<LoadingState>({})
+  // const [errors, setErrors] = useState<ErrorState>({})
 
-  const { makeRequest } = useSPL402({
-    network: 'mainnet-beta',
-    rpcUrl: import.meta.env.VITE_SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com',
-  })
+  // const { makeRequest } = useSPL402({
+  //   network: 'mainnet-beta',
+  //   rpcUrl: import.meta.env.VITE_SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com',
+  // })
 
-  const fetchData = async (endpoint: Endpoint) => {
-    if (!publicKey && endpoint.price > 0) {
-      setErrors({ ...errors, [endpoint.path]: 'Please connect your wallet first' })
-      return
-    }
+  // const fetchData = async (endpoint: Endpoint) => {
+  //   if (!publicKey && endpoint.price > 0) {
+  //     setErrors({ ...errors, [endpoint.path]: 'Please connect your wallet first' })
+  //     return
+  //   }
 
-    setLoading({ ...loading, [endpoint.path]: true })
-    setErrors({ ...errors, [endpoint.path]: null })
-    setResponses({ ...responses, [endpoint.path]: null })
+  //   setLoading({ ...loading, [endpoint.path]: true })
+  //   setErrors({ ...errors, [endpoint.path]: null })
+  //   setResponses({ ...responses, [endpoint.path]: null })
 
-    try {
-      let response: Response
+  //   try {
+  //     let response: Response
 
-      if (endpoint.price === 0) {
-        response = await fetch(`${API_URL}${endpoint.path}`)
-      } else {
-        const walletAdapter = {
-          publicKey: wallet.publicKey,
-          signAndSendTransaction: async (transaction: any) => {
-            const signature = await wallet.sendTransaction(transaction, connection, {
-              skipPreflight: false,
-            })
-            return { signature }
-          },
-        }
-        response = await makeRequest(`${API_URL}${endpoint.path}`, walletAdapter)
-      }
+  //     if (endpoint.price === 0) {
+  //       response = await fetch(`${API_URL}${endpoint.path}`)
+  //     } else {
+  //       const walletAdapter = {
+  //         publicKey: wallet.publicKey,
+  //         signAndSendTransaction: async (transaction: any) => {
+  //           const signature = await wallet.sendTransaction(transaction, connection, {
+  //             skipPreflight: false,
+  //           })
+  //           return { signature }
+  //         },
+  //       }
+  //       response = await makeRequest(`${API_URL}${endpoint.path}`, walletAdapter)
+  //     }
 
-      if (!response.ok) {
-        const errorText = await response.text()
-        throw new Error(`HTTP ${response.status}: ${errorText}`)
-      }
+  //     if (!response.ok) {
+  //       const errorText = await response.text()
+  //       throw new Error(`HTTP ${response.status}: ${errorText}`)
+  //     }
 
-      const data = await response.json()
-      setResponses({ ...responses, [endpoint.path]: data })
-    } catch (error) {
-      console.error('Error fetching data:', error)
+  //     const data = await response.json()
+  //     setResponses({ ...responses, [endpoint.path]: data })
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error)
 
-      let errorMessage = (error as Error).message
+  //     let errorMessage = (error as Error).message
 
-      if (errorMessage.includes('User rejected')) {
-        errorMessage = 'Transaction cancelled. Please approve the wallet transaction to continue.'
-      }
+  //     if (errorMessage.includes('User rejected')) {
+  //       errorMessage = 'Transaction cancelled. Please approve the wallet transaction to continue.'
+  //     }
 
-      setErrors({ ...errors, [endpoint.path]: errorMessage })
-    } finally {
-      setLoading({ ...loading, [endpoint.path]: false })
-    }
-  }
+  //     setErrors({ ...errors, [endpoint.path]: errorMessage })
+  //   } finally {
+  //     setLoading({ ...loading, [endpoint.path]: false })
+  //   }
+  // }
 
   return (
     <div className="min-h-screen bg-black text-white">

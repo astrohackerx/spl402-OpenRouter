@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useWallet, useConnection } from '@solana/wallet-adapter-react'
 import { useSPL402 } from 'spl402'
-import { Transaction, PublicKey, TransactionInstruction } from '@solana/web3.js'
+// import { Transaction, PublicKey, TransactionInstruction } from '@solana/web3.js'
 import AIChat from './AIChat'
 import CodeGenerator from './CodeGenerator'
 import TextAnalyzer from './TextAnalyzer'
